@@ -2,6 +2,7 @@ package com.liujian.springbootinit.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.liujian.springbootinit.common.ErrorCode;
 import com.liujian.springbootinit.mapper.UserMapper;
@@ -266,5 +267,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         queryWrapper.orderBy(SqlUtils.validSortField(sortField), sortOrder.equals(CommonConstant.SORT_ORDER_ASC),
                 sortField);
         return queryWrapper;
+    }
+
+    @Override
+    public Page<UserVO> listUserByPage(UserQueryRequest userQueryRequest) {
+        long current = userQueryRequest.getCurrent();
+        long pageSize = userQueryRequest.getPageSize();
+        Page<User> userPage = this.page(new Page<>(current, pageSize),
+                this.getQueryWrapper(userQueryRequest));
+        Page<UserVO> userVOPage = new Page<>(current, pageSize, userPage.getTotal());
+        List<UserVO> userVO = this.getUserVO(userPage.getRecords());
+        return userVOPage.setRecords(userVO);
     }
 }
