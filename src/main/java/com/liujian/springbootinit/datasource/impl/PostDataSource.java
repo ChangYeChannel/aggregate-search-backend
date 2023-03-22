@@ -6,8 +6,11 @@ import com.liujian.springbootinit.model.dto.post.PostQueryRequest;
 import com.liujian.springbootinit.model.vo.PostVO;
 import com.liujian.springbootinit.service.PostService;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 
 /**
@@ -19,11 +22,11 @@ public class PostDataSource implements DataSource<PostVO> {
     private PostService postService;
 
     @Override
-    public Page<PostVO> doSearch(String searchText, long pageNum, long pageSize) {
+    public Page<PostVO> doSearch(String searchText, long pageNum, long pageSize, HttpServletRequest request) {
         PostQueryRequest postQueryRequest = new PostQueryRequest();
         postQueryRequest.setPageSize(pageSize);
         postQueryRequest.setCurrent(pageNum);
         postQueryRequest.setSearchText(searchText);
-        return postService.listPostByPage(postQueryRequest, null);
+        return postService.listPostByPage(postQueryRequest, request);
     }
 }

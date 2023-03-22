@@ -8,6 +8,7 @@ import com.liujian.springbootinit.service.UserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 
 /**
@@ -21,8 +22,9 @@ import javax.annotation.Resource;
 public class UserDataSource implements DataSource<UserVO> {
     @Resource
     private UserService userService;
+
     @Override
-    public Page<UserVO> doSearch(String searchText, long pageNum, long pageSize) {
+    public Page<UserVO> doSearch(String searchText, long pageNum, long pageSize, HttpServletRequest request) {
         UserQueryRequest userQueryRequest = new UserQueryRequest();
         userQueryRequest.setUserName(searchText);
         userQueryRequest.setCurrent(pageNum);

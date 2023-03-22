@@ -38,11 +38,11 @@ public class SearchFacade {
         long pageSize = searchRequest.getPageSize();
 
         //采用异步编排的模式进行接口的并发查询，fork-join框架加CompletableFuture异步回调
-        CompletableFuture<Page<UserVO>> userTask = CompletableFuture.supplyAsync(() -> (Page<UserVO>) dataSourceRegister.getInstance(SearchEnum.USER.getValue()).doSearch(searchText, current, pageSize));
+        CompletableFuture<Page<UserVO>> userTask = CompletableFuture.supplyAsync(() -> (Page<UserVO>) dataSourceRegister.getInstance(SearchEnum.USER.getValue()).doSearch(searchText, current, pageSize, request));
 
-        CompletableFuture<Page<PostVO>> postTask = CompletableFuture.supplyAsync(() -> (Page<PostVO>) dataSourceRegister.getInstance(SearchEnum.POST.getValue()).doSearch(searchText, current, pageSize));
+        CompletableFuture<Page<PostVO>> postTask = CompletableFuture.supplyAsync(() -> (Page<PostVO>) dataSourceRegister.getInstance(SearchEnum.POST.getValue()).doSearch(searchText, current, pageSize, request));
 
-        CompletableFuture<Page<Picture>> pictureTask = CompletableFuture.supplyAsync(() -> (Page<Picture>) dataSourceRegister.getInstance(SearchEnum.PICTURE.getValue()).doSearch(searchText, current, pageSize));
+        CompletableFuture<Page<Picture>> pictureTask = CompletableFuture.supplyAsync(() -> (Page<Picture>) dataSourceRegister.getInstance(SearchEnum.PICTURE.getValue()).doSearch(searchText, current, pageSize, request));
 
         CompletableFuture.allOf(userTask,postTask,pictureTask).join();
 
@@ -78,7 +78,7 @@ public class SearchFacade {
         SearchVo searchVo = new SearchVo();
 
         assert searchEnum != null;
-        Page<?> dataList = dataSourceRegister.getInstance(searchEnum.getValue()).doSearch(searchText, current, pageSize);
+        Page<?> dataList = dataSourceRegister.getInstance(searchEnum.getValue()).doSearch(searchText, current, pageSize, request);
         searchVo.setDataList(dataList.getRecords());
         return searchVo;
     }

@@ -12,6 +12,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
@@ -22,8 +23,9 @@ import java.util.Map;
  */
 @Service
 public class PictureDataSource implements DataSource<Picture> {
+
     @Override
-    public Page<Picture> doSearch(String searchText, long pageNum, long pageSize) {
+    public Page<Picture> doSearch(String searchText, long pageNum, long pageSize, HttpServletRequest request) {
         long current = pageNum * pageSize;
         // bing 图片网址
         String url = String.format("https://cn.bing.com/images/search?q=%s&first=%s",searchText,current);
