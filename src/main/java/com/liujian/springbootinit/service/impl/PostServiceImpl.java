@@ -129,6 +129,7 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post> implements Po
 
     @Override
     public Page<Post> searchFromEs(PostQueryRequest postQueryRequest) {
+        // 拿到所有请求参数
         Long id = postQueryRequest.getId();
         Long notId = postQueryRequest.getNotId();
         String searchText = postQueryRequest.getSearchText();
@@ -137,14 +138,14 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post> implements Po
         List<String> tagList = postQueryRequest.getTags();
         List<String> orTagList = postQueryRequest.getOrTags();
         Long userId = postQueryRequest.getUserId();
-        // es 起始页为 0
-        long current = postQueryRequest.getCurrent() - 1;
+        long current = postQueryRequest.getCurrent() - 1;// es 起始页为 0
         long pageSize = postQueryRequest.getPageSize();
         String sortField = postQueryRequest.getSortField();
         String sortOrder = postQueryRequest.getSortOrder();
+
+        // 构建bool多条件查询
         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
         // 过滤
-        boolQueryBuilder.filter(QueryBuilders.termQuery("is_delete", 0));
         if (id != null) {
             boolQueryBuilder.filter(QueryBuilders.termQuery("id", id));
         }
@@ -152,7 +153,7 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post> implements Po
             boolQueryBuilder.mustNot(QueryBuilders.termQuery("id", notId));
         }
         if (userId != null) {
-            boolQueryBuilder.filter(QueryBuilders.termQuery("user_id", userId));
+            boolQueryBuilder.filter(QueryBuilders.termQuery("userId", userId));
         }
         // 必须包含所有标签
         if (CollectionUtils.isNotEmpty(tagList)) {
@@ -201,6 +202,7 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post> implements Po
         Page<Post> page = new Page<>();
         page.setTotal(searchHits.getTotalHits());
         List<Post> resourceList = new ArrayList<>();
+        // 因为ES存储的字段可能不全（比如点赞数这种更新频率较快的字段就不会在ES中进行存储）
         // 查出结果后，从 db 获取最新动态数据（比如点赞数）
         if (searchHits.hasSearchHits()) {
             List<SearchHit<PostEsDTO>> searchHitList = searchHits.getSearchHits();

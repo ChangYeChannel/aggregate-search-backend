@@ -3,11 +3,10 @@ package com.liujian.springbootinit.datasource.impl;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.liujian.springbootinit.datasource.DataSource;
 import com.liujian.springbootinit.model.dto.post.PostQueryRequest;
+import com.liujian.springbootinit.model.entity.Post;
 import com.liujian.springbootinit.model.vo.PostVO;
 import com.liujian.springbootinit.service.PostService;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +26,8 @@ public class PostDataSource implements DataSource<PostVO> {
         postQueryRequest.setPageSize(pageSize);
         postQueryRequest.setCurrent(pageNum);
         postQueryRequest.setSearchText(searchText);
-        return postService.listPostByPage(postQueryRequest, request);
+        // 引入ES查询
+        Page<Post> postPage = postService.searchFromEs(postQueryRequest);
+        return postService.getPostVOPage(postPage, request);
     }
 }

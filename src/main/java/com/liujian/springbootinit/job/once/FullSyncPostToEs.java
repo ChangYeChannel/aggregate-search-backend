@@ -7,6 +7,7 @@ import com.liujian.springbootinit.service.PostService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.List;

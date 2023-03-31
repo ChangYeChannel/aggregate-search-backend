@@ -24,8 +24,6 @@
     </sql>
 
     <select id="listPostWithDelete" resultType="com.liujian.springbootinit.model.entity.Post">
-        select *
-        from post
-        where updateTime >= #{minUpdateTime}
+        select * from post where update_time >= #{minUpdateTime}
     </select>
 </mapper>

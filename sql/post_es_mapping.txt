@@ -1,3 +1,4 @@
+PUT post_v1
 {
   "aliases": {
     "post": {}
@@ -28,12 +29,6 @@
       },
       "tags": {
         "type": "keyword"
-      },
-      "thumbNum": {
-        "type": "long"
-      },
-      "favourNum": {
-        "type": "long"
       },
       "userId": {
         "type": "keyword"
