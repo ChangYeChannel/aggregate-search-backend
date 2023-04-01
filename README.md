@@ -41,6 +41,7 @@
 - 开启 job/cycle 文件夹中的 [IncSyncPostToEs.java](src%2Fmain%2Fjava%2Fcom%2Fliujian%2Fspringbootinit%2Fjob%2Fcycle%2FIncSyncPostToEs.java) 的 @Component 注解
 - [IncSyncPostToEs.java](src%2Fmain%2Fjava%2Fcom%2Fliujian%2Fspringbootinit%2Fjob%2Fcycle%2FIncSyncPostToEs.java) 的作用是异步定时任务，每隔一分钟会将前五分钟的数据库中文章表的更新后数据同步到 ES 中
 - 至此，项目启动完成
+- 项目集成knife4J -> 访问地址：协议://ip地址:端口号/api/doc.html
 
 
 
