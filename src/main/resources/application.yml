@@ -33,8 +33,6 @@ spring:
   # Elasticsearch 配置
   elasticsearch:
     uris: http://192.168.131.100:9200
-    username: root
-    password: 123456
   # 文件上传
   servlet:
     multipart:

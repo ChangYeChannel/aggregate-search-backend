@@ -26,9 +26,11 @@ public class SearchController {
     @PostMapping("/list")
     public BaseResponse<SearchVo> searchAll(@RequestBody SearchRequest searchRequest, HttpServletRequest request) {
         String searchType = searchRequest.getType();
-        if (searchType != null) {
+        if (!"".equals(searchType) && searchType != null) {
+            System.out.println(searchType + "1");
             return ResultUtils.success(searchFacade.getByType(searchRequest,request));
         }else {
+            System.out.println(searchType + "2");
             return ResultUtils.success(searchFacade.getAll(searchRequest,request));
         }
     }

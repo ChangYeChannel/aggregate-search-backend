@@ -68,7 +68,7 @@ public class SearchFacade {
      */
     public SearchVo getByType(@RequestBody SearchRequest searchRequest, HttpServletRequest request) {
         //获取聚合查询关键词
-        String searchText = searchRequest.getSearchText();
+        String searchText = "".equals(searchRequest.getSearchText()) ? "" : searchRequest.getSearchText();
         long current = searchRequest.getCurrent();
         long pageSize = searchRequest.getPageSize();
         String searchType = searchRequest.getType();
