@@ -1,4 +1,4 @@
-# 聚合搜索中台项目
+# 聚合搜索项目
 
 > 作者：[Name](https://github.com/Sonmenily)
 
