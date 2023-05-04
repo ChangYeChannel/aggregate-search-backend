@@ -43,5 +43,7 @@ public class FullSyncPostToEs implements CommandLineRunner {
             postEsDao.saveAll(postEsDTOList.subList(i, end));
         }
         log.info("FullSyncPostToEs end, total {}", total);
+
+        System.out.println("------------------------已经同步完成----------------------");
     }
 }

@@ -37,7 +37,7 @@ public class IncSyncPostToEs {
         Date fiveMinutesAgoDate = new Date(new Date().getTime() - 5 * 60 * 1000L);
         List<Post> postList = postMapper.listPostWithDelete(fiveMinutesAgoDate);
         if (CollectionUtils.isEmpty(postList)) {
-            log.info("no inc post");
+            log.info("-----------无需增量同步----------");
             return;
         }
         List<PostEsDTO> postEsDTOList = postList.stream()
@@ -52,5 +52,7 @@ public class IncSyncPostToEs {
             postEsDao.saveAll(postEsDTOList.subList(i, end));
         }
         log.info("IncSyncPostToEs end, total {}", total);
+
+        System.out.println("-----------增量同步已完成----------");
     }
 }

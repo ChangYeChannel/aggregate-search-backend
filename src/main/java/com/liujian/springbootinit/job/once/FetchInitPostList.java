@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 // todo 取消注释开启任务，开启注释后，程序会在服务启动时被执行一次，待执行一次文章（帖子）表有数据之后，将此注解再次注释掉，防止被调用多次
 //@Component
 @Slf4j
-public class FetchInitPostList implements CommandLineRunner {
+public class FetchInitPostList implements  CommandLineRunner {
 
     @Resource
     private PostService postService;
