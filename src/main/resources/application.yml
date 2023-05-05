@@ -18,7 +18,7 @@ spring:
   # todo 需替换配置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.131.100:3306/search_backend
+    url: jdbc:mysql://192.168.131.101:3306/search_backend
     username: root
     password: root
   # Redis 配置
@@ -32,7 +32,7 @@ spring:
   # todo 需要被替换的配置
   # Elasticsearch 配置
   elasticsearch:
-    uris: http://192.168.131.100:9200
+    uris: http://192.168.131.101:9200
   # 文件上传
   servlet:
     multipart:
