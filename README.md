@@ -1,6 +1,6 @@
 # 聚合搜索项目
 
-> 作者：[Name](https://github.com/Sonmenily)
+> 作者：[ChangYeChannel](https://github.com/ChangYeChannel)
 
 基于 Java SpringBoot 项目初始模板，开发的聚合搜索中台项目
 
